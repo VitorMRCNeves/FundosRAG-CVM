@@ -1,0 +1,13 @@
+FROM apache/airflow:2.11.2-python3.11
+COPY requirements.txt /
+RUN pip install --no-cache-dir -r /requirements.txt
+
+# Configurável via 'docker build --build-arg AMBIENTE=dev'
+ARG AMBIENTE=dev
+ENV AMBIENTE ${AMBIENTE}
+
+ARG BASE_PATH_DAGS=root/pessoal/FundosRAG-CVM/airflow/dags
+ENV BASE_PATH_DAGS ${BASE_PATH_DAGS}
+
+ENV AWS_S3_ALLOW_UNSAFE_RENAME=true
+ENV AWS_REGION=us-east-1
