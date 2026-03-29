@@ -1,0 +1,7 @@
+# Override local para evitar conflito de porta com outras instâncias Airflow
+# e para usar imagens disponíveis localmente.
+services:
+  postgres:
+    image: postgres:13
+  redis:
+    image: redis:latest

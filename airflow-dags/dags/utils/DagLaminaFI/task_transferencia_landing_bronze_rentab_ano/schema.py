@@ -1,0 +1,16 @@
+SCHEMA_BRONZE_RENTAB_ANO = {
+    "ANO_RENTAB": {"nomes_origem": ["ANO_RENTAB"], "tipo": "string"},
+    "CNPJ_FUNDO_CLASSE": {"nomes_origem": ["CNPJ_FUNDO_CLASSE"], "tipo": "string"},
+    "DENOM_SOCIAL": {"nomes_origem": ["DENOM_SOCIAL"], "tipo": "string"},
+    "DT_COMPTC": {"nomes_origem": ["DT_COMPTC"], "tipo": "string"},
+    "ID_SUBCLASSE": {"nomes_origem": ["ID_SUBCLASSE"], "tipo": "string"},
+    "PR_PERFM_INDICE_REFER_ANO": {"nomes_origem": ["PR_PERFM_INDICE_REFER_ANO"], "tipo": "string"},
+    "PR_RENTAB_ANO": {"nomes_origem": ["PR_RENTAB_ANO"], "tipo": "string"},
+    "PR_VARIACAO_INDICE_REFER_ANO": {"nomes_origem": ["PR_VARIACAO_INDICE_REFER_ANO"], "tipo": "string"},
+    "RENTAB_ANO_OBS": {"nomes_origem": ["RENTAB_ANO_OBS"], "tipo": "string"},
+    "TP_FUNDO_CLASSE": {"nomes_origem": ["TP_FUNDO_CLASSE"], "tipo": "string"},
+    "ano_particao": {"nomes_origem": ["ano_particao"], "tipo": "int16"},
+    "mes_particao": {"nomes_origem": ["mes_particao"], "tipo": "int"},
+    "timestamp_dagrun": {"nomes_origem": ["timestamp_dagrun"], "tipo": "datetime64[us]"},
+    "timestamp_escrita": {"nomes_origem": ["timestamp_escrita"], "tipo": "datetime64[us]"},
+}

@@ -3,7 +3,10 @@ import requests
 import pandas as pd
 import zipfile
 import io
-from datetime import datetime, timedelta
+from datetime import timedelta
+import os
+
+BUCKET_LANDING = os.environ("BUCKET_LANDING")
 
 
 def fn_get_informes_diarios(
@@ -44,6 +47,6 @@ def fn_get_informes_diarios(
         )
 
         csv_file.to_csv(
-            f"/root/pessoal/FundosRAG-CVM/airflow-dags/dags/utils/dados_informe_diario/fundos/landing/ano={ano}/mes={mes}/informes_{data_interval_end.strftime('%Y-%m-%d')}.csv",
+            f"s3://{BUCKET_LANDING}/fundos/cvm/ano={ano}/mes={mes}/informes_{data_interval_end.strftime('%Y-%m-%d')}.csv",
             index=False,
         )
