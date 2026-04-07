@@ -8,14 +8,11 @@ from deltalake import write_deltalake, DeltaTable
 from utils.utilitarios import apply_schema
 import os
 
-BUCKET_BRONZE = os.environ("BUCKET_BRONZE")
-BUCKET_LANDING = os.environ("BUCKET_LANDING")
-
-
 def fn_leitura_base_landing(ano: int, mes: int, data_interval_end: datetime):
     """
     Encapsula a função de leitura da landing para facilitar o mock em testes
     """
+    BUCKET_LANDING = os.environ["BUCKET_LANDING"]
     df = pd.read_csv(
         f"s3://{BUCKET_LANDING}/fundos/cvm/ano={ano}/mes={mes}/informes_{data_interval_end.strftime('%Y-%m-%d')}.csv",
         sep=",",
@@ -29,6 +26,7 @@ def fn_leitura_base_landing(ano: int, mes: int, data_interval_end: datetime):
 def fn_processa_landing_bronze(
     data_interval_end: str, corrige_mes_anterior: bool = False
 ):
+    BUCKET_BRONZE = os.environ["BUCKET_BRONZE"]
     if isinstance(data_interval_end, str):
         data_interval_end = isoparse(data_interval_end)
 

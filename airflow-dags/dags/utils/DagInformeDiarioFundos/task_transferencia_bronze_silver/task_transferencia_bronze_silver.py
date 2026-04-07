@@ -7,13 +7,11 @@ from utils.utilitarios import apply_schema
 from dateutil.parser import isoparse
 import os
 
-BUCKET_BRONZE = os.environ("BUCKET_BRONZE")
-BUCKET_SILVER = os.environ("BUCKET_SILVER")
-
-
 def fn_transferencia_bronze_silver(
     data_interval_end: str, corrige_mes_anterior: bool = False
 ):
+    BUCKET_BRONZE = os.environ["BUCKET_BRONZE"]
+    BUCKET_SILVER = os.environ["BUCKET_SILVER"]
     if isinstance(data_interval_end, str):
         data_interval_end = isoparse(data_interval_end)
 

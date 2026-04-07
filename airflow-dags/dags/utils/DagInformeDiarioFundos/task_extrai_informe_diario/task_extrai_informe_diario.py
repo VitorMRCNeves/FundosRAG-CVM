@@ -6,9 +6,6 @@ import io
 from datetime import timedelta
 import os
 
-BUCKET_LANDING = os.environ("BUCKET_LANDING")
-
-
 def fn_get_informes_diarios(
     data_interval_end: str, corrige_mes_anterior: bool = False
 ) -> None:
@@ -20,7 +17,7 @@ def fn_get_informes_diarios(
     Returns:
         None
     """
-    bucket_name = "bucket-landing"
+    BUCKET_LANDING = os.environ["BUCKET_LANDING"]
 
     if isinstance(data_interval_end, str):
         data_interval_end = isoparse(data_interval_end)
