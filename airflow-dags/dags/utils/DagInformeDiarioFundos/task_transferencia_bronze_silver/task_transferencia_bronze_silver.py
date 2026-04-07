@@ -5,11 +5,13 @@ from utils.DagInformeDiarioFundos.task_transferencia_bronze_silver.schema import
 )
 from utils.utilitarios import apply_schema
 from dateutil.parser import isoparse
-
+import os
 
 def fn_transferencia_bronze_silver(
     data_interval_end: str, corrige_mes_anterior: bool = False
 ):
+    BUCKET_BRONZE = os.environ["BUCKET_BRONZE"]
+    BUCKET_SILVER = os.environ["BUCKET_SILVER"]
     if isinstance(data_interval_end, str):
         data_interval_end = isoparse(data_interval_end)
 
@@ -20,9 +22,9 @@ def fn_transferencia_bronze_silver(
     ano = data_interval_end.year
     mes = data_interval_end.month
 
-    df = DeltaTable(
-        "/root/pessoal/FundosRAG-CVM/airflow-dags/dags/utils/dados_informe_diario/fundos/bronze"
-    ).to_pandas(filters=[("ano_particao", "=", ano), ("mes_particao", "=", mes)])
+    df = DeltaTable(f"s3://{BUCKET_BRONZE}/fundos/cvm/").to_pandas(
+        filters=[("ano_particao", "=", ano), ("mes_particao", "=", mes)]
+    )
 
     df_max = df.loc[df["timestamp_dagrun"] == df["timestamp_dagrun"].max()]
 
@@ -32,7 +34,7 @@ def fn_transferencia_bronze_silver(
 
     df_max_escrita = apply_schema(df_max_escrita, schema=SCHEMA_INFORME_FUNDOS)
 
-    path = "/root/pessoal/FundosRAG-CVM/airflow-dags/dags/utils/dados_informe_diario/fundos/silver/"
+    path = f"s3://{BUCKET_SILVER}/fundos/cvm/"
 
     write_deltalake(
         path,

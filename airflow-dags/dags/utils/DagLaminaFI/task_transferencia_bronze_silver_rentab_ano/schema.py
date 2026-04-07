@@ -1,0 +1,16 @@
+SCHEMA_SILVER_RENTAB_ANO = {
+    "cnpj_fundo": {"nomes_origem": ["CNPJ_FUNDO_CLASSE"], "tipo": "string"},
+    "denom_social": {"nomes_origem": ["DENOM_SOCIAL"], "tipo": "string"},
+    "tp_fundo_classe": {"nomes_origem": ["TP_FUNDO_CLASSE"], "tipo": "string"},
+    "id_subclasse": {"nomes_origem": ["ID_SUBCLASSE"], "tipo": "string"},
+    "dt_comptc": {"nomes_origem": ["DT_COMPTC"], "tipo": "datetime64[us]"},
+    "ano_rentab": {"nomes_origem": ["ANO_RENTAB"], "tipo": "int16"},
+    "pr_rentab_ano": {"nomes_origem": ["PR_RENTAB_ANO"], "tipo": "float64"},
+    "pr_variacao_indice_refer_ano": {"nomes_origem": ["PR_VARIACAO_INDICE_REFER_ANO"], "tipo": "float64"},
+    "pr_perfm_indice_refer_ano": {"nomes_origem": ["PR_PERFM_INDICE_REFER_ANO"], "tipo": "float64"},
+    "rentab_ano_obs": {"nomes_origem": ["RENTAB_ANO_OBS"], "tipo": "string"},
+    "ano_particao": {"nomes_origem": ["ano_particao"], "tipo": "int16"},
+    "mes_particao": {"nomes_origem": ["mes_particao"], "tipo": "int8"},
+    "timestamp_dagrun": {"nomes_origem": ["timestamp_dagrun"], "tipo": "datetime64[us]"},
+    "timestamp_escrita": {"nomes_origem": ["timestamp_escrita"], "tipo": "datetime64[us]"},
+}

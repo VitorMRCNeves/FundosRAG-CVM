@@ -6,14 +6,15 @@ from utils.DagInformeDiarioFundos.task_transferencia_landing_bronze.schema impor
 )
 from deltalake import write_deltalake, DeltaTable
 from utils.utilitarios import apply_schema
-
+import os
 
 def fn_leitura_base_landing(ano: int, mes: int, data_interval_end: datetime):
     """
     Encapsula a função de leitura da landing para facilitar o mock em testes
     """
+    BUCKET_LANDING = os.environ["BUCKET_LANDING"]
     df = pd.read_csv(
-        f"/root/pessoal/FundosRAG-CVM/airflow-dags/dags/utils/dados_informe_diario/fundos/landing/ano={ano}/mes={mes}/informes_{data_interval_end.strftime('%Y-%m-%d')}.csv",
+        f"s3://{BUCKET_LANDING}/fundos/cvm/ano={ano}/mes={mes}/informes_{data_interval_end.strftime('%Y-%m-%d')}.csv",
         sep=",",
         decimal=".",
         converters={i: str for i in range(100)},
@@ -25,6 +26,7 @@ def fn_leitura_base_landing(ano: int, mes: int, data_interval_end: datetime):
 def fn_processa_landing_bronze(
     data_interval_end: str, corrige_mes_anterior: bool = False
 ):
+    BUCKET_BRONZE = os.environ["BUCKET_BRONZE"]
     if isinstance(data_interval_end, str):
         data_interval_end = isoparse(data_interval_end)
 
@@ -39,14 +41,20 @@ def fn_processa_landing_bronze(
 
     df_landing["ano_particao"] = ano
     df_landing["mes_particao"] = mes
-    df_landing["timestamp_dagrun"] = data_interval_end
+
+    ts_dagrun = pd.Timestamp(data_interval_end)
+
+    if ts_dagrun.tz is not None:
+        ts_dagrun = ts_dagrun.tz_convert("UTC").tz_localize(None)
+
+    df_landing["timestamp_dagrun"] = ts_dagrun
     df_landing["timestamp_escrita"] = datetime.now()
 
     df_landing = apply_schema(
         df=df_landing, schema=SCHEMA_INFORME_FUNDOS, rename_cols=True, select_cols=True
     )
 
-    path = "/root/pessoal/FundosRAG-CVM/airflow-dags/dags/utils/dados_informe_diario/fundos/bronze/"
+    path = f"s3://{BUCKET_BRONZE}/fundos/cvm/"
     write_deltalake(
         path,
         df_landing,

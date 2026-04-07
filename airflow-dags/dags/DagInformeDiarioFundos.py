@@ -34,11 +34,12 @@ corrige_mes_anterior = "{{ (data_interval_end.in_timezone('America/Sao_Paulo').d
 
 default_args = {
     "owner": "Vitor Neves",
-    "start_date": "2025-03-28",
+    "start_date": "2025-01-28",
     "email": [],
     "email_on_failure": False,
     "email_on_retry": False,
     "retries": 1,
+    "params": {},
 }
 
 
