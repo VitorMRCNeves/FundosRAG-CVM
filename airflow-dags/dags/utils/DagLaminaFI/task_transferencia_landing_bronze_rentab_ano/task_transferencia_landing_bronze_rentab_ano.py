@@ -8,8 +8,8 @@ from utils.DagLaminaFI.task_transferencia_landing_bronze_rentab_ano.schema impor
 )
 from utils.utilitarios import apply_schema
 
-BUCKET_BRONZE = os.environ("BUCKET_BRONZE")
-BUCKET_LANDING = os.environ("BUCKET_LANDING")
+BUCKET_BRONZE = os.environ["BUCKET_BRONZE"]
+BUCKET_LANDING = os.environ["BUCKET_LANDING"]
 
 
 def fn_transferencia_landing_bronze_rentab_ano(data_interval_end: str) -> None:

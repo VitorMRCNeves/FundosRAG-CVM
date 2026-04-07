@@ -6,8 +6,8 @@ from utils.DagLaminaFI.task_transferencia_bronze_silver_rentab_ano.schema import
 )
 from utils.utilitarios import apply_schema
 
-BUCKET_BRONZE = os.environ("BUCKET_BRONZE")
-BUCKET_SILVER = os.environ("BUCKET_SILVER")
+BUCKET_BRONZE = os.environ["BUCKET_BRONZE"]
+BUCKET_SILVER = os.environ["BUCKET_SILVER"]
 
 
 def fn_transferencia_bronze_silver_rentab_ano(data_interval_end: str) -> None:

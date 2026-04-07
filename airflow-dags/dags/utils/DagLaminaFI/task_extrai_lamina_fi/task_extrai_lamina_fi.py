@@ -7,7 +7,7 @@ import requests
 from airflow.exceptions import AirflowSkipException
 
 
-BUCKET_LANDING = os.environ("BUCKET_LANDING")
+BUCKET_LANDING = os.environ["BUCKET_LANDING"]
 
 _TABELAS = {
     "lamina_fi": lambda ano, mes: f"lamina_fi_{ano}{mes}.csv",
@@ -74,10 +74,9 @@ def fn_extrai_lamina_fi(data_interval_end: str) -> None:
             on_bad_lines="warn",
         )
 
-        destino = f"s3://{BUCKET_LANDING}/fundos/laminas/{tabela}/ano={ano}/mes={mes}"
-        os.makedirs(destino, exist_ok=True)
+        destino = f"s3://{BUCKET_LANDING}/fundos/laminas/{tabela}/ano={ano}/mes={mes}/{tabela}_{data_str}.csv"
 
         df.to_csv(
-            f"{destino}/{tabela}_{data_str}.csv",
+            destino,
             index=False,
         )

@@ -15,8 +15,8 @@ BASE_PATH = os.environ.get(
     "s3://dev--dados-lake-landing-oneinvest/fundos/laminas/",
 )
 
-BUCKET_BRONZE = os.environ("BUCKET_BRONZE")
-BUCKET_LANDING = os.environ("BUCKET_LANDING")
+BUCKET_BRONZE = os.environ["BUCKET_BRONZE"]
+BUCKET_LANDING = os.environ["BUCKET_LANDING"]
 
 
 def fn_transferencia_landing_bronze_carteira(data_interval_end: str) -> None:
